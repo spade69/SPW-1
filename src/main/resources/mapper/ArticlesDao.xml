@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.spw.dao.ArticlesDao">
+    <!-- 为DAO接口方法提供sql语句配置 -->
+    <insert id="insertArticles" parameterType="cn.spw.entity.Articles" >
+        INSERT INTO articles
+        (article_uuid, title, user_uuid, create_time, last_update_time, img, texts) VALUES
+        (#{articleUuid}, #{title}, #{userUuid}, #{createTime}, #{lastUpdateTime}, #{img}, #{texts});
+    </insert>
+
+    <update id="updateArticles" parameterType="cn.spw.entity.Articles" >
+        UPDATE articles SET
+            title = #{title}, last_update_time = #{lastUpdateTime}, img = #{img}, texts = #{texts}
+        WHERE article_uuid = #{articleUuid} AND user_uuid = #{userUuid};
+    </update>
+
+    <select id="queryArticlesByArticleUuid" parameterType="cn.spw.entity.Articles" resultType="cn.spw.entity.Articles" >
+        SELECT *
+        FROM articles
+        where article_uuid = #{articleUuid};
+    </select>
+
+    <select id="queryArticlesByUserUuid" parameterType="cn.spw.entity.Articles" resultType="cn.spw.entity.Articles" >
+        SELECT *
+        FROM articles
+        where user_uuid = #{userUuid};
+    </select>
+
+    <delete id="deleteArticles" parameterType="String" >
+        DELETE FROM articles
+        where article_uuid = #{articleUuid} And user_uuid = #{userUuid};
+    </delete>
+</mapper>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.spw.dao.UserDao">
+    <!-- 为DAO接口方法提供sql语句配置 -->
+    <insert id="addUser" parameterType="cn.spw.entity.User" >
+        INSERT INTO user
+        (user_uuid, username, password, email) VALUES
+        (#{userUuid}, #{username}, #{password}, #{email});
+    </insert>
+
+    <select id="queryByEmail" resultType="cn.spw.entity.User" parameterType="String">
+        SELECT user_uuid,username,password,email
+        FROM user
+        where email = #{email};
+    </select>
+
+    <select id="queryByUsername" resultType="cn.spw.entity.User" parameterType="String">
+        SELECT user_uuid,username,password,email
+        FROM user
+        where username = #{username};
+    </select>
+
+    <select id="queryByEmailAndPassword" resultType="cn.spw.entity.User" parameterType="cn.spw.entity.User">
+        SELECT user_uuid,username,password,email
+        FROM user
+        where email = #{email} and password = #{password};
+    </select>
+
+    <select id="queryByUsernameAndPassword" resultType="cn.spw.entity.User" parameterType="cn.spw.entity.User">
+        SELECT user_uuid,username,password,email
+        FROM user
+        where username = #{username} and password = #{password};
+    </select>
+</mapper>
